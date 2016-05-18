@@ -403,14 +403,30 @@ void initSDCard() {
 }
 
 void startupIndicator() {
-  // Generate arpeggio based on a random number
+  // Generate an arpeggio based on a random number
   // You can customize this!
-  static int randomFirstNote = random(200, 1200);
+   int randomFirstNote = random(100, 1500);
+  //a variable to hold the note that the tone function to play.
+  int myNote = 0;
+  //the number of notes in your arpeggio (should be an odd number).
+  int arpeggio = 21;
+  //the delay between notes
+  int delay_note = 50;
+  //create a 'for' loop to play all notes in arpeggio
+  for (int j = 0; j < arpeggio; j++) {
 
-  for (int j = 0; j < 8; j++) {
-    tone(SOUND_PIN, randomFirstNote + (((j + 4) % 8) * 150), 100);
-    delay(100);
+    //each time the 'for' loop runs, it increments the value of 'j' by 1
+    //if the value of j is greater than half of the number of notes in the arpeggio, it subtracts 
+    if (j > (arpeggio/2)) {
+      myNote = arpeggio - (j+1);
+    } else {
+      myNote = j;
+    }
+    
+    tone(SOUND_PIN, randomFirstNote + (myNote * 144), delay_note);
+    delay(delay_note);
     digitalWrite(SOUND_PIN, LOW);
+      }
   }
-}
+
 
